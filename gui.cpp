@@ -1,5 +1,6 @@
 # include <Siv3D.hpp> // OpenSiv3D v0.3.2
 #include<vector>
+#include<string>
 
 
 using namespace std;
@@ -84,7 +85,7 @@ int myarea = 13, enemyarea = 14;
 //agent//
 int agent = 8;
 int agentID[8] = { 1,2,3,4,5,6,7,8 };
-String agentSt[8] = { U"move",U"remove",U"stay",U"move",U"remove",U"stay" ,U"move",U"remove" };
+string agentSt[8] = { "move","remove","stay","move","remove","stay" ,"move","remove" };
 	//agent_coord//
 int agent_coord[8][2] = {
 	{2,8},{11,16},{1,8},{17,14},
@@ -155,22 +156,32 @@ void Main()
 		//agent status//
 		for (int i = 0; i < agent; i++) {
 			if (i != 0 && i % 2 != 0) {
-				font(U"agent:", agentID[i], U" ", agentSt[i]).draw(Vec2(1070, 100 + (i - 1) * 40), Palette::White);
+				font(U"agent:", agentID[i]).draw(Vec2(1070, 100 + (i - 1) * 40), Palette::White);
+				if (agentSt[i] == "move") 
+					font(U"move").draw(Vec2(1170, 100 + (i - 1) * 40), Palette::Cyan);
+				else if(agentSt[i]=="remove")
+					font(U"remove").draw(Vec2(1170, 100 + (i - 1) * 40), Palette::Yellow);
+				else if(agentSt[i]=="stay")
+					font(U"stay").draw(Vec2(1170, 100 + (i - 1) * 40), Palette::Red);
 			}
-			else
-				font(U"agent:", agentID[i], U" ", agentSt[i]).draw(Vec2(850, 100 + i * 40), Palette::White);
+			else {
+				font(U"agent:", agentID[i]).draw(Vec2(850, 100 + i * 40), Palette::White);
+				if (agentSt[i] == "move")
+					font(U"move").draw(Vec2(950, 100 + i * 40), Palette::Cyan);
+				else if (agentSt[i] == "remove")
+					font(U"remove").draw(Vec2(950, 100 + i * 40), Palette::Yellow);
+				else if (agentSt[i] == "stay")
+					font(U"stay").draw(Vec2(950, 100 + i * 40), Palette::Red);
+			}
 		}
 		//更新ボタン//
-		if (SimpleGUI::Button(U"更新", Vec2(850, 400), 180)) {
-
-		}
-		//入力ボタン//
-		if (SimpleGUI::Button(U"入力", Vec2(1070, 400), 180)) {
+		if (SimpleGUI::Button(U"更新", Vec2(850, 400), 400)) {
 
 		}
 		//ソルバーメッセージ//
 		font(U"solver status").draw(Vec2(850,450), Palette::White);
 		Rect(850, 490, 420, 200).draw(Palette::Black);
+		
 	}
 
 }
